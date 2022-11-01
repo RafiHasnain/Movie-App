@@ -4,7 +4,7 @@ import { createMovie, getMovies } from "../controllers/movies.js";
 
 const router = express.Router();
 
-router.get("/", getMovies); // This is get request
-router.post("/", createMovie); // The is get request
+router.get("/", getMovies);
+router.post("/", createMovie);
 
 export default router;
