@@ -1,6 +1,8 @@
 import { AppBar, Container, Grid, Grow, Typography } from "@material-ui/core";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
+import { getMovies } from "./actions/movies";
 import Form from "./components/Form/Form";
 import Movies from "./components/Movies/Movies";
 import movies from "./images/movies.png";
@@ -8,6 +10,12 @@ import useStyles from "./styles";
 
 const App = () => {
   const classes = useStyles();
+  const dispatch = useDispatch(getMovies());
+
+  useEffect(() => {
+    dispatch();
+  }, [dispatch]);
+
   return (
     <Container maxWidth='lg'>
       <AppBar className={classes.appBar} position='static' color='inherit'>
