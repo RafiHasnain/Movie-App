@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import movieDetail from "../models/movieDetail.js";
 
 export const getMovies = async (req, res) => {
@@ -13,7 +14,7 @@ export const getMovies = async (req, res) => {
 export const createMovie = async (req, res) => {
   const body = req.body;
 
-  const newMovie = new MovieDetails(body);
+  const newMovie = new movieDetail(body);
   try {
     await newMovie.save();
 
@@ -30,9 +31,23 @@ export const updateMovie = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(_id))
     return res.status(404).send("No post with that id");
 
-  const updatedMovie = await movieDetail.findByIdAndUpdate(_id, movie, {
-    new: true,
-  });
+  const updatedMovie = await movieDetail.findByIdAndUpdate(
+    _id,
+    { ...movie, _id },
+    {
+      new: true,
+    }
+  );
 
   res.json(updatedMovie);
+};
+
+export const deleteMovie = async (req, res) => {
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send("No post with that id");
+
+  await movieDetail.findByIdAndRemove(id);
+
+  res.json({ message: "Post deleted successfully" });
 };

@@ -15,7 +15,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getMovies());
-  }, [dispatch]);
+  }, [currentId, dispatch]);
 
   return (
     <Container maxWidth='lg'>

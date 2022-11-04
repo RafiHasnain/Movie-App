@@ -1,7 +1,7 @@
 import { Button, Paper, TextField, Typography } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FileBase from "react-file-base64";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createMovie, updateMovie } from "../../actions/movies";
 import useStyles from "./styles";
 
@@ -14,9 +14,16 @@ export default function Form({ currentId, setCurrentId }) {
     description: "",
     poster: "",
   });
-
+  const movie = useSelector((state) =>
+    currentId ? state.movies.find((m) => m._id === currentId) : null
+  );
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (movie) setMovieData(movie);
+  }, [movie]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (currentId) {
@@ -24,8 +31,19 @@ export default function Form({ currentId, setCurrentId }) {
     } else {
       dispatch(createMovie(movieData));
     }
+    clear();
   };
-  const clear = () => {};
+  const clear = () => {
+    setCurrentId(null);
+    setMovieData({
+      title: "",
+      year: "",
+      rating: "",
+      tags: "",
+      description: "",
+      poster: "",
+    });
+  };
   return (
     <Paper className={classes.paper}>
       <form
@@ -33,7 +51,9 @@ export default function Form({ currentId, setCurrentId }) {
         noValidate
         className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}>
-        <Typography variant='h6'>Movie Name</Typography>
+        <Typography variant='h6'>
+          {currentId ? "Editing" : "Creating"} Movie List
+        </Typography>
         <TextField
           name='title'
           variant='outlined'

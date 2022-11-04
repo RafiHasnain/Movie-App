@@ -8,7 +8,8 @@ export default (movies = [], action) => {
       return movies.map((movie) =>
         movie._id === action.payload._id ? action.payload : movie
       );
-
+    case "DELETE":
+      return movies.filter((movie) => movie._id !== action.payload);
     default:
       return movies;
   }

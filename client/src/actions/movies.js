@@ -6,7 +6,7 @@ export const getMovies = () => async (dispatch) => {
     const { data } = await api.fetchPosts();
     dispatch({ type: "FETCH_ALL", payload: data });
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
   }
 };
 
@@ -25,6 +25,15 @@ export const updateMovie = (id, movie) => async (dispatch) => {
     const { data } = await api.updateMovie(id, movie);
     dispatch({ type: "UPDATE", payload: data });
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
+  }
+};
+
+export const deleteMovie = (id) => async (dispatch) => {
+  try {
+    await api.deleteMovie(id);
+    dispatch({ type: "DELETE", payload: id });
+  } catch (error) {
+    console.log(error);
   }
 };

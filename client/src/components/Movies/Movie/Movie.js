@@ -10,9 +10,13 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import React from "react";
 import useStyles from "./styles";
+import { useDispatch } from "react-redux";
+import { deleteMovie } from "../../../actions/movies";
+
 // import moment from "moment";
 export default function Movie({ movie, setCurrentId }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -52,7 +56,10 @@ export default function Movie({ movie, setCurrentId }) {
           <ThumbUpAltIcon fontSize='small' />
           {movie.rating}/10
         </Typography> */}
-        <Button size='small' color='primary' onClick={() => {}}>
+        <Button
+          size='small'
+          color='primary'
+          onClick={() => dispatch(deleteMovie(movie._id))}>
           <DeleteIcon fontSize='small' />
           Delete
         </Button>
