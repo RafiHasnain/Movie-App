@@ -13,7 +13,7 @@ export const getMovies = async (req, res) => {
 export const createMovie = async (req, res) => {
   const body = req.body;
 
-  const newMovie = new movieDetail(body);
+  const newMovie = new MovieDetails(body);
   try {
     await newMovie.save();
 
@@ -21,4 +21,18 @@ export const createMovie = async (req, res) => {
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
+};
+
+export const updateMovie = async (req, res) => {
+  const { id: _id } = req.params;
+  const movie = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("No post with that id");
+
+  const updatedMovie = await movieDetail.findByIdAndUpdate(_id, movie, {
+    new: true,
+  });
+
+  res.json(updatedMovie);
 };

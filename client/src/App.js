@@ -1,5 +1,5 @@
 import { AppBar, Container, Grid, Grow, Typography } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { getMovies } from "./actions/movies";
@@ -9,6 +9,7 @@ import movies from "./images/movies.png";
 import useStyles from "./styles";
 
 const App = () => {
+  const [currentId, setCurrentId] = useState(null);
   const classes = useStyles();
   const dispatch = useDispatch(getMovies());
 
@@ -37,10 +38,10 @@ const App = () => {
             alignItems='stretch'
             spacing={3}>
             <Grid item xs={12} sm={7}>
-              <Movies />
+              <Movies setCurrentId={setCurrentId} />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Form />
+              <Form currentId={currentId} setCurrentId={setCurrentId} />
             </Grid>
           </Grid>
         </Container>

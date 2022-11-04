@@ -2,10 +2,10 @@ import { Button, Paper, TextField, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import FileBase from "react-file-base64";
 import { useDispatch } from "react-redux";
+import { createMovie, updateMovie } from "../../actions/movies";
 import useStyles from "./styles";
-import { createMovie } from "../../actions/movies";
 
-export default function Form() {
+export default function Form({ currentId, setCurrentId }) {
   const [movieData, setMovieData] = useState({
     title: "",
     year: "",
@@ -19,7 +19,11 @@ export default function Form() {
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createMovie(movieData));
+    if (currentId) {
+      dispatch(updateMovie(currentId, movieData));
+    } else {
+      dispatch(createMovie(movieData));
+    }
   };
   const clear = () => {};
   return (

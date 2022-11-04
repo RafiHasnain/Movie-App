@@ -4,6 +4,10 @@ export default (movies = [], action) => {
       return action.payload;
     case "CREATE":
       return [...movies, action.payload];
+    case "UPDATE":
+      return movies.map((movie) =>
+        movie._id === action.payload._id ? action.payload : movie
+      );
 
     default:
       return movies;
