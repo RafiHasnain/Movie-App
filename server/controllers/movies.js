@@ -13,7 +13,7 @@ export const getMovies = async (req, res) => {
 export const createMovie = async (req, res) => {
   const body = req.body;
 
-  const newMovie = new MovieDetails(body);
+  const newMovie = new movieDetail(body);
   try {
     await newMovie.save();
 

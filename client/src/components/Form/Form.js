@@ -1,7 +1,9 @@
 import { Button, Paper, TextField, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import FileBase from "react-file-base64";
+import { useDispatch } from "react-redux";
 import useStyles from "./styles";
+import { createMovie } from "../../actions/movies";
 
 export default function Form() {
   const [movieData, setMovieData] = useState({
@@ -14,8 +16,11 @@ export default function Form() {
   });
 
   const classes = useStyles();
-
-  const handleSubmit = () => {};
+  const dispatch = useDispatch();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(createMovie(movieData));
+  };
   const clear = () => {};
   return (
     <Paper className={classes.paper}>
