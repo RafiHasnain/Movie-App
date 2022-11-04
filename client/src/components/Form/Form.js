@@ -88,7 +88,9 @@ export default function Form({ currentId, setCurrentId }) {
           label='Tags'
           fullWidth
           value={movieData.tags}
-          onChange={(e) => setMovieData({ ...movieData, tags: e.target.value })}
+          onChange={(e) =>
+            setMovieData({ ...movieData, tags: e.target.value.split(",") })
+          }
         />
         <TextField
           name='description'

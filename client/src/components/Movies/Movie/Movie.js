@@ -9,9 +9,9 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import React from "react";
-import useStyles from "./styles";
 import { useDispatch } from "react-redux";
 import { deleteMovie } from "../../../actions/movies";
+import useStyles from "./styles";
 
 // import moment from "moment";
 export default function Movie({ movie, setCurrentId }) {
@@ -61,7 +61,7 @@ export default function Movie({ movie, setCurrentId }) {
           color='primary'
           onClick={() => dispatch(deleteMovie(movie._id))}>
           <DeleteIcon fontSize='small' />
-          Delete
+          &nbsp; Delete
         </Button>
       </CardActions>
     </Card>
