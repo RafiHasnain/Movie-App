@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:5000/movies";
+const url = process.env.REACT_APP_API_KEY;
 
 export const fetchPosts = () => axios.get(url);
 export const createMovie = (newMovie) => axios.post(url, newMovie);
